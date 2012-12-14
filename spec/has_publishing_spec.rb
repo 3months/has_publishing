@@ -1,5 +1,4 @@
 require 'active_record'
-require 'active_support/all'
 require 'ostruct'
 require 'has_publishing'
 
