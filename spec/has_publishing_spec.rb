@@ -60,6 +60,11 @@ describe "has_publishing" do
     TestModel.new
   end
 
+  describe "default configuration" do
+    it { HasPublishing.config.scope_records.should be_true }
+    it { HasPublishing.config.published_rails_environment.should eq "production" }
+  end
+
   describe "scopes" do
     describe "draft" do
       it "should include a draft record" do
