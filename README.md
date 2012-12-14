@@ -35,6 +35,29 @@ bundle exec rails generate migration [YOUR MODEL NAME] embargoed_until:datetime 
 
 (If anyone would like to add a generator to automate this process, it would be very much appreciated)
 
+## A note on publishing
+
+Publishing is typically used in an environment where there may be two installations of the Rails application sharing a common database. This at least is the set up that `has_publishing` is designed to operate in - something like the following:
+
+
+```
+|-- Production admin site RAILS_ENV=production --| >>>>> SharedDatabase <<<<<< |-- Production Published Site RAILS_ENV=production_published --|
+```
+
+Because of this, the gem applies a default_scope to all instances of this model to either:
+
+* Only return published records if `Rails.env` matches `HasPublishing.config.published_rails_environment`
+* Only return draft records otherwise
+
+This prevents 'duplicate' records from appearing for the user (since each 'record' has two representations - 'draft' and 'published/withdrawn')
+
+### So:
+
+1. If you would prefer that this default scope **NOT** be applied, then simply set `HasPublishing.config.scope_records` to `false`. 
+2. If you want the default scope to apply properly, ensure that you set the Rails environment of your **published** application in `HasPublishing.config.published_rails_environment`.
+
+
+
 ## Contributing
 
 1. Fork it
