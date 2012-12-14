@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["joshua.mcarthur@gmail.com"]
   gem.description   = %q{Add ability to publish/embargo models}
   gem.summary       = %q{Add publishing to your ActiveRecord models}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/3months/has_publishing"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
