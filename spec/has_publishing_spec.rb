@@ -6,7 +6,7 @@ require 'has_publishing'
 # This should be all of the rails we need
 class Rails
   def self.env
-    "production"
+    "draft"
   end
 end
 
@@ -203,6 +203,7 @@ describe "has_publishing" do
     describe "published?" do
       context "record is draft, inverse is published" do
         before do
+          subject.kind = 'draft'
           subject.published = TestModel.new(:kind => "published")
         end
 
@@ -264,6 +265,7 @@ describe "has_publishing" do
     describe "withdrawn?" do
       context "record is draft, inverse is withdrawn" do
         before do
+          subject.kind = 'draft'
           subject.published = TestModel.new(:kind => "withdrawn")
         end
 
