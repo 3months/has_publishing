@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = HasPublishing::VERSION
   gem.authors       = ["Josh McArthur @ 3months"]
   gem.email         = ["joshua.mcarthur@gmail.com"]
-  gem.description   = %q{Add ability to publish/embargo models}
+  gem.description   = %q{Add ability to draft/publish/withdraw/embargo models}
   gem.summary       = %q{Add publishing to your ActiveRecord models}
   gem.homepage      = "https://github.com/3months/has_publishing"
 
