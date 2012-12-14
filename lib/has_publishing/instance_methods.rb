@@ -10,7 +10,8 @@ module HasPublishing
     #   Under imbargo = published but future dated (embargo_until field)
 
 
-    def publish(extra_attrs = {})
+    def publish!(extra_attrs = {})
+      self.save! if self.new_record?
       self.class.unscoped {
         return false unless draft?
         if published.nil? # first time publishing
@@ -20,13 +21,14 @@ module HasPublishing
           published.update_attributes!(attributes.merge(:kind => 'published', :published_id => nil, :published_at => Time.zone.now, :dirty => nil).merge(extra_attrs))
         end
         self.class.record_timestamps = false # want same updated_at
+        self.save! # make sure this model is in sync
         update_attributes!(:published_at => published.published_at, :dirty => false, :updated_at => published.updated_at)
         self.class.record_timestamps = true
         return published
       }
     end
 
-    def withdraw
+    def withdraw!
       self.class.unscoped {
         return false unless draft? && ever_published?
         self.class.record_timestamps = false # want same updated_at
