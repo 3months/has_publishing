@@ -6,16 +6,12 @@ module HasPublishing
     # you must explicitly use .unscoped to remove the default scope.
 
     def default_scope
-      return where('1=1') if HasPublishing.config.scope_records == false
+      return scoped if HasPublishing.config.scope_records == false
 
       if Rails.env == (HasPublishing.config.published_rails_environment)
-        where("#{self.table_name}.kind = 'published'").
-        where([
-          "#{self.table_name}.embargoed_until IS NULL OR ? > #{self.table_name}.embargoed_until", 
-          Time.zone.now.round
-        ])
+        published
       else
-        where(:kind => "draft")
+        draft
       end
     end
   end
