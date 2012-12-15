@@ -5,8 +5,13 @@ require 'has_publishing'
 
 # This should be all of the rails we need
 class Rails
+  @@env = "draft"
   def self.env
-    "draft"
+    @@env
+  end
+
+  def self.env=(env)
+    @@env = env
   end
 end
 
@@ -65,7 +70,44 @@ describe "has_publishing" do
     it { HasPublishing.config.published_rails_environment.should eq "production" }
   end
 
+
   describe "scopes" do
+
+    describe "default scope" do
+      context "scope_records is false" do
+        before do
+          HasPublishing.config.scope_records = false
+        end
+
+        it "should not append any conditions" do
+          TestModel.should_not_receive(:where)
+          TestModel.first
+        end
+      end
+
+      context "rails production is published" do
+        before do
+          HasPublishing.config.scope_records = true
+          HasPublishing.config.published_rails_environment = "production"
+          Rails.env = "production"
+        end
+
+        after do
+          HasPublishing.config.scope_records = false
+        end
+
+        it "should only return published records" do
+          TestModel.should_receive(:published).at_least(:once)
+          TestModel.first
+        end
+
+        it "should not return embargoed records" do
+          TestModel.should_receive(:not_embargoed)
+          TestModel.first
+        end
+      end
+    end
+
     describe "draft" do
       it "should include a draft record" do
         subject.kind = 'draft'
