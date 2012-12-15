@@ -14,8 +14,8 @@ class << ActiveRecord::Base
     extend HasPublishing::ClassMethods
 
 
-    scope :published, lambda { where("kind = 'published' AND (embargoed_until IS NULL OR ? > embargoed_until)", Time.zone.now.round) }
-    scope :draft, where("kind = 'draft'")
+    scope :published, lambda { where(:kind => "published").not_embargoed }
+    scope :draft, where(:kind => 'draft')
 
     scope :embargoed, lambda { where("embargoed_until IS NOT NULL AND ? > embargoed_until", Time.zone.now.round) }
     scope :not_embargoed, lambda { where("embargoed_until IS NULL OR embargoed_until < ?", Time.zone.now.round) }
