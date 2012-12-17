@@ -2,6 +2,7 @@ require 'has_publishing/version'
 require 'has_publishing/class_methods'
 require 'has_publishing/instance_methods'
 require 'has_publishing/configuration'
+require 'has_publishing/engine' if defined?(Rails)
 
 
 class << ActiveRecord::Base
