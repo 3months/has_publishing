@@ -1,6 +1,6 @@
 class PublishingFieldsFor<%= @table_name %> < ActiveRecord::Migration
   def self.change
-    change_table <%= @table_name %> do |t|
+    change_table :<%= @table_name %> do |t|
       t.datetime :published_at 
       t.datetime :embargoed_until
       t.string   :kind, :null => false, :index => true
