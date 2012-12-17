@@ -1,7 +1,7 @@
 require 'rails/generators'
 require 'rails/generators/migration'
 
-class HasPublishing::Generators::PublishingGenerator < ::Rails::Generators::Base
+class HasPublishing::PublishingGenerator < ::Rails::Generators::Base
   include Rails::Generators::Migration
 
   def self.source_root
