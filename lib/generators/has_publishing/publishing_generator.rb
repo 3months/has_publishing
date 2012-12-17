@@ -19,7 +19,7 @@ module HasPublishing
 
     def create_migration_file
       set_local_assigns!
-      migration_template 'migration.rb', "db/migrate/publishing_fields_for_#{@table_name}.rb"
+      migration_template 'migration.erb', "db/migrate/publishing_fields_for_#{@table_name}.rb"
     end
 
     def set_local_assigns!
