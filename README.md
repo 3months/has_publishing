@@ -2,6 +2,8 @@
 
 Mark models as `has_publishing` to publish, draft and embargo models. Easy peasy!
 
+[![Build Status](https://travis-ci.org/3months/has_publishing.png?branch=master)](https://travis-ci.org/3months/has_publishing)
+
 ## Features
 
 * `published`, `draft`, `embargoed` scopes for easy filtering/finding
