@@ -43,7 +43,7 @@ Publishing is typically used in an environment where there may be two installati
 
 
 ```
-|-- Admin RAILS_ENV=production --| >>>>> SharedDatabase <<<<<< |-- Published Site RAILS_ENV=production_published --|
+|-- Admin RAILS_ENV=draft --| >>>>> SharedDatabase <<<<<< |-- Published Site RAILS_ENV=published --|
 ```
 
 Because of this, the gem applies a default_scope to all instances of this model to either:
