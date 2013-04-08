@@ -61,7 +61,7 @@ This prevents 'duplicate' records from appearing for the user (since each 'recor
 
 ## Injecting your own attributes to be saved
 
-When you call ``` publish! ``` and ``` withdraw! ``` you can pass a hash of attributes with it to be updated with your ``` ActiveRecord::Model ``` object. 
+When you call `publish!` and `withdraw!` you can pass a hash of attributes with it to be updated with your `ActiveRecord::Model` object. 
 
 This is usefull if you are using a gem like [ancestry](https://github.com/stefankroes/ancestry "ancestry"), for example:
 
