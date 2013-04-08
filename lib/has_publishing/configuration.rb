@@ -3,5 +3,5 @@ module HasPublishing
 
   # Set some default config
   self.config.scope_records = true
-  self.config.published_rails_environment = "production"
+  self.config.published_rails_environment = "published"
 end
