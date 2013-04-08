@@ -47,7 +47,7 @@ Publishing is typically used in an environment where there may be two installati
 
 Because of this, the gem applies a default_scope to all instances of this model to either:
 
-* Only return published records if `Rails.env` matches `HasPublishing.config.published_rails_environment` (which by default is ``` 'published' ```)
+* Only return published records if `Rails.env` matches `HasPublishing.config.published_rails_environment` (which by default is `'published'`)
 * Only return draft records otherwise
 
 This prevents 'duplicate' records from appearing for the user (since each 'record' has two representations - 'draft' and 'published/withdrawn')
