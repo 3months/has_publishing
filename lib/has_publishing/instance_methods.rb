@@ -28,11 +28,11 @@ module HasPublishing
       }
     end
 
-    def withdraw!
+    def withdraw!(extra_attrs = {})
       self.class.unscoped {
         return false unless draft? && ever_published?
         self.class.record_timestamps = false # want same updated_at
-        published.update_attributes!(:kind => 'withdrawn') and update_attributes!(published.attributes.merge({:kind => 'draft', :published_id => published_id, :published_at => nil, :dirty => false}))
+        published.update_attributes!(:kind => 'withdrawn') and update_attributes!(published.attributes.merge({:kind => 'draft', :published_id => published_id, :published_at => nil, :dirty => false}).merge(extra_attrs))
         self.class.record_timestamps = true
         return published
       }
