@@ -67,7 +67,7 @@ describe "has_publishing" do
 
   describe "default configuration" do
     it { HasPublishing.config.scope_records.should be_true }
-    it { HasPublishing.config.published_rails_environment.should eq "production" }
+    it { HasPublishing.config.published_rails_environment.should eq "published" }
   end
 
 
