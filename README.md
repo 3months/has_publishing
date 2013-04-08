@@ -58,6 +58,16 @@ This prevents 'duplicate' records from appearing for the user (since each 'recor
 2. If you want the default scope to apply properly, ensure that you set the Rails environment of your **published** application in `HasPublishing.config.published_rails_environment`.
 
 
+## Injecting your own attributes to be saved
+
+When you call `publish!` and `withdraw!` you can pass a hash of attributes with it to be updated with your `ActiveRecord::Model` object. 
+
+This is usefull if you are using a gem like [ancestry](https://github.com/stefankroes/ancestry "ancestry"), for example:
+
+``` ruby
+  @page = Page.find_by_slug('foo-bar-page')
+  @page.publish!(:parent => (@page.parent.published unless @page.is_root?))
+```
 
 ## Contributing
 
