@@ -14,11 +14,12 @@ module HasPublishing
       self.save! if self.new_record?
       self.class.unscoped {
         return false unless draft?
+        attrs = attributes.except('id')
         if published.nil? # first time publishing
-          published_obj = self.class.create!(attributes.merge(:kind => 'published', :published_at => Time.zone.now, :dirty => nil).merge(extra_attrs))
+          published_obj = self.class.create!(attrs.merge(:kind => 'published', :published_at => Time.zone.now, :dirty => nil).merge(extra_attrs))
           self.published_id = published_obj.id
         else
-          published.update_attributes!(attributes.merge(:kind => 'published', :published_id => nil, :published_at => Time.zone.now, :dirty => nil).merge(extra_attrs))
+          published.update_attributes!(attrs.merge(:kind => 'published', :published_id => nil, :published_at => Time.zone.now, :dirty => nil).merge(extra_attrs))
         end
         self.class.record_timestamps = false # want same updated_at
         self.save! # make sure this model is in sync
