@@ -19,11 +19,11 @@ module HasPublishing
           published_obj = self.class.create!(attrs.merge(:kind => 'published', :published_at => Time.zone.now, :dirty => nil).merge(extra_attrs))
           self.published_id = published_obj.id
         else
-          published.update_attributes!(attrs.merge(:kind => 'published', :published_id => nil, :published_at => Time.zone.now, :dirty => nil).merge(extra_attrs))
+          published.update!(attrs.merge(:kind => 'published', :published_id => nil, :published_at => Time.zone.now, :dirty => nil).merge(extra_attrs))
         end
         self.class.record_timestamps = false # want same updated_at
         self.save! # make sure this model is in sync
-        update_attributes!(:published_at => published.published_at, :dirty => false, :updated_at => published.updated_at)
+        update!(:published_at => published.published_at, :dirty => false, :updated_at => published.updated_at)
         self.class.record_timestamps = true
         return published
       }
@@ -34,7 +34,7 @@ module HasPublishing
         return false unless draft? && ever_published?
         self.class.record_timestamps = false # want same updated_at
         attrs = published.attributes.except('id')
-        published.update_attributes!(:kind => 'withdrawn') and update_attributes!(attrs.merge({:kind => 'draft', :published_id => published_id, :published_at => nil, :dirty => false}).merge(extra_attrs))
+        published.update!(:kind => 'withdrawn') and update!(attrs.merge({:kind => 'draft', :published_id => published_id, :published_at => nil, :dirty => false}).merge(extra_attrs))
         self.class.record_timestamps = true
         return published
       }
@@ -63,7 +63,7 @@ module HasPublishing
     private
 
     def set_dirty
-      self.class.unscoped { update_attributes(:dirty => true) if draft? && published && published.updated_at != updated_at && !dirty? && !withdrawn? }
+      self.class.unscoped { update(:dirty => true) if draft? && published && published.updated_at != updated_at && !dirty? && !withdrawn? }
     end
 
     def set_draft

@@ -27,7 +27,7 @@ ActiveRecord::Base.establish_connection(
 )
 
 
-class CreateTestModels < ActiveRecord::Migration
+class CreateTestModels < ActiveRecord::Migration[6.0]
   def self.up
     if ActiveRecord::Base.connection.table_exists? "test_models"
       drop_table :test_models
